@@ -23,7 +23,7 @@ A step by step series of examples that tell you have to get a development env ru
 1. Clone the repository with **git clone https://github.com/vender/QuickLMS.git**
 2. From the projects root run **cp .env.example .env**
 3. Configure your .env file
-4. Run **composer install**
+4. Run **composer update**
 5. Run **php artisan key:generate**
 6. Run **php artisan migrate --seed** (it has some seeded data for your testing)
 7. That's it: launch the main URL. Frontend folder **public**
