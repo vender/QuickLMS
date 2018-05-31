@@ -3,7 +3,7 @@
 @section('main')
 
     @if (!is_null($purchased_courses))
-        <h3>My courses</h3>
+        <h3>Мои курсы</h3>
         <div class="row">
 
         @foreach($purchased_courses as $course)
@@ -27,12 +27,18 @@
 
     @endif
 
-    <h3>All courses</h3>
+    <h3>Все курсы</h3>
     <div class="row">
     @foreach($courses as $course)
-        <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="product-layout product-grid col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="thumbnail">
-                <img src="http://placehold.it/320x150" alt="">
+                <a href="{{ route('courses.show', [$course->slug]) }}">
+                @if($course->course_image)
+                    <img src="/uploads/{{$course->course_image}}" alt="{{ $course->title }}" width="320px" height="150px">
+                @else
+                    <img src="http://placehold.it/320x150" alt="{{ $course->title }}">
+                @endif
+                </a>
                 <div class="caption">
                     <h4 class="pull-right">${{ $course->price }}</h4>
                     <h4><a href="{{ route('courses.show', [$course->slug]) }}">{{ $course->title }}</a>

@@ -12,7 +12,7 @@
     <title>{{ $page_title or 'Quick LMS' }}</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="/css/shop-homepage.css" rel="stylesheet">
@@ -27,82 +27,89 @@
 </head>
 
 <body>
+<div class="page text-center">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/">Quick LMS</a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Services</a>
-                            </li>
-                            <li>
-                                <a href="#">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <div class="col-lg-6 text-right" style="padding-top: 10px">
-                    @if (Auth::check())
-                        <div style="color:white">
-                            Logged in as {{ Auth::user()->email }}
-                            <form action="{{ route('auth.logout') }}" method="post">
-                                {{ csrf_field() }}
-                                <input type="submit" value="Logout" class="btn btn-info">
-                            </form>
+    <header class="page-header">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap">
+            <nav data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="55px" data-lg-stick-up-offset="55px" class="rd-navbar rd-navbar-centered">
+                <div class="rd-navbar-inner">
+                    <div class="rd-navbar-panel">
+                        <!-- RD Navbar Toggle-->
+                        <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
+                        <!-- RD Navbar Brand-->
+                        <div class="rd-navbar-brand veil-md reveal-tablet-block"><a href="index.html" class="brand-name"> <img src="image/logo-224x48.png" width="224" height="48" alt="" class="img-responsive center-block"></a></div>
+                        <div class="rd-navbar-nav-wrap">
+                            <!-- RD Navbar Nav-->
+                            <ul class="rd-navbar-nav">
+                                <li><a href="https://moon-ezoterica.ru">Главная</a></li>
+                                <li><a href="https://moon-ezoterica.ru/shop">Каталог товаров</a></li>
+                                <li class="active"><a href="/">Курсы онлайн</a></li>
+                                <li>
+                                    <!-- RD Navbar Brand-->
+                                    <span class="rd-navbar-brand veil veil-tablet reveal-md-inline-block"><a href="index.html" class="brand-name"><img src="image/logo-full.png" width="156" height="45" alt="" class="img-responsive center-block"></a></span>
+                                </li>
+                                <li>
+                                    @if (Auth::check())
+                                        <div style="color:white">
+                                            <form action="{{ route('auth.logout') }}" method="post">
+                                                {{ csrf_field() }}
+                                                {{ Auth::user()->email }}
+                                                <input type="submit" value="Выход" class="btn btn-primary">
+                                            </form>
+                                        </div>
+                                    @else
+                                        <form action="{{ route('auth.login') }}"  method="post"  class="text-left">
+                                            {{ csrf_field() }}
+                                            <div class="range range-xs-center">
+                                                <div class="cell-xs-6 cell-md-4 cell-lg-5 inset-xs-right-7">
+                                                    <div class="form-group">
+                                                        <label for="forms-username" class="form-label">Email</label>
+                                                        <input id="forms-username" type="email" name="email" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="cell-xs-6 cell-md-4 cell-lg-5 offset-top-10 offset-xs-top-0 inset-xs-left-7">
+                                                    <div class="form-group">
+                                                        <label for="forms-email" class="form-label">Пароль</label>
+                                                        <input id="forms-email" type="password" name="password" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="cell-md-3 cell-lg-2 text-center text-md-left offset-top-10 offset-md-top-0 inset-md-left-7">
+                                                    <button type="submit" class="btn btn-primary">Вход</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @endif
+                                </li>
+                            </ul>
                         </div>
-                    @else
-                        <form action="{{ route('auth.login') }}" method="post">
-                            {{ csrf_field() }}
-                            <input type="email" name="email" placeholder="Email" />
-                            <input type="password" name="password" placeholder="Password" />
-                            <input type="submit" value="Login" class="btn btn-info">
-                        </form>
-                    @endif
+                    </div>
                 </div>
-            </div>
+            </nav>
         </div>
-        <!-- /.container -->
-    </nav>
+    </header>
 
     <!-- Page Content -->
     <div class="container">
 
         <div class="row">
 
-            <div class="col-md-3">
-
-                @yield('sidebar')
-
-            </div>
-
-            <div class="col-md-9">
-
-                <div class="row">
-
-                    @yield('main')
-
+            @hasSection('sidebar')
+                <div class="col-md-3">
+                    @yield('sidebar')
                 </div>
-
-            </div>
-
+                <div class="col-md-9">
+                    <div class="row">
+                        @yield('main')
+                    </div>
+                </div>
+            @else
+                <div class="col-md-12">
+                    <div class="row">
+                        @yield('main')
+                    </div>
+                </div>
+            @endif
         </div>
 
     </div>
@@ -116,19 +123,19 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Quick LMS 2017</p>
                 </div>
             </div>
         </footer>
 
     </div>
     <!-- /.container -->
+</div>
 
-    <!-- jQuery -->
-    <script src="/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="/js/core.min.js"></script>
+<script src="/js/script.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
 
 </body>
 
